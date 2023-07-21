@@ -1,0 +1,61 @@
+<!-- /views/playlist.ejs -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>LIST</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <header>
+    <a href="/" class="header-logo active">SONGTIFY</a>
+    <a href="/playlist" class="header-logo">PLAYLIST</a>
+  </header>
+  <div class="container">
+    <div class="container-header">
+      <h1>Playlist</h1>
+      <button class="new-button" onclick="openModal()">Add Playlist</button>
+      <!-- <a href="/new" class="new-button">+ Tambahkan</a> -->
+    </div>
+    <div class="index-table-wrapper">
+      <div class="table-head">
+        <span class="playlist-column"></span>
+        <span>Playlist</span>
+      </div>
+      <ul class="table-body">
+        <% songs.forEach(song=> { %>
+          <li>
+            <div class="item-data">
+              <span class="playlist-column"></span>
+              <span class="name-column">
+                <%= song.name %>
+              </span>
+            </div>
+            <div class="item-menu">
+              <a href="/playlist/<%= song._id %>" style="margin: 0% 10%;" class="dur-column">></a>
+            </div>
+          </li>
+          <% }); %>
+      </ul>
+    </div>
+  </div>
+  <!-- The modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Add Playlist</h2>
+      <form method="post" action="/addplaylist">
+        <label for="nameInput">Name:</label>
+        <input type="text" id="nameInput" name="name" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

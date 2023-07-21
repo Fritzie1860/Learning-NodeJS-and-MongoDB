@@ -1,0 +1,88 @@
+<!-- /views/index.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LIST</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="header-logo active">SONGTIFY</a>
+      <a href="/playlist" class="header-logo">PLAYLIST</a>
+    </header>
+    <div class="container">
+      <div class="container-header">
+        <h1>Popular Songs</h1>
+      </div>
+      <div class="index-table-wrapper">
+        <div class="table-head">
+          <span class="dur-column">x Play</span>
+          <span>Song Title</span>
+        </div>
+        <ul class="table-body">
+          <% popularSongs.forEach(popularSong => { %>
+          <li>
+            <div class="item-data">
+              <span class="dur-column"><%= popularSong.playCount %></span>
+              <span class="name-column"
+                ><%= popularSong.title %></span>
+            </div>
+            <div class="item-menu">
+              <!-- <a href="#" class="new-button"> +♥︎ </a> -->
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <div class="container-header">
+        <h1>Song List</h1>
+        <!-- <a href="/new" class="new-button">+ Tambahkan</a> -->
+      </div>
+      <div class="index-table-wrapper">
+        <div class="table-head">
+          <span class="dur-column"></span>
+          <span>Song Title</span>
+        </div>
+        <ul class="table-body">
+          <% songs.forEach(song => { %>
+          <li>
+            <div class="item-data">
+              <span class="dur-column"></span>
+              <span class="name-column"
+                ><%= song.title %> - <%= song.artist %></span
+              >
+            </div>
+            <div class="item-menu">
+              <a href="/play/<%= song._id %>" class="new-button dur-column"> ► </a>
+              <button style="margin: 0% 10%;" class="dur-column" onclick="openModal1('<%= song._id %>')" > +♥︎ </a>
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+    <!-- The modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Add To Playlist</h2>
+      <form action="/addsongtoplaylist" method="post">
+        <label for="song">Select a playlist:</label>
+        <input type="hidden" name="id" id="idsong">
+        <select name="song" id="song">
+            <% for (const song of playlists) { %>
+                <option value="<%= song._id %>"><%= song.name %></option>
+            <% } %>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  </body>
+</html>
